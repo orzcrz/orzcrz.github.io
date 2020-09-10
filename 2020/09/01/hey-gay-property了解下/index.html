@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="CN">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-  <title>hey gay, @property了解下 | 花果山</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"orzcrz.github.io","root":"/","scheme":"Muse","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+
   <meta name="description" content="先说点废话，看过一个段子说是面试问weak的经历，大概是这样：   2014年 A： weak是什么 B： 弱引用，释放时自动置nil A： 明天来上班   2016年 A： weak是什么 B： 弱引用，释放时自动置nil，内部通过哈希表维护， A： 回去等通知   2018年 A： weak是什么 B： 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;&#x3D;2000">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hey gay, @property了解下">
@@ -16,83 +31,229 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://orzcrz.github.io/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/property.jpg">
 <meta property="article:published_time" content="2020-09-01T09:47:51.000Z">
-<meta property="article:modified_time" content="2020-09-08T01:49:05.262Z">
+<meta property="article:modified_time" content="2020-09-10T03:54:04.561Z">
 <meta property="article:author" content="orzcrz">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Objective-C">
 <meta property="article:tag" content="炒河粉">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://orzcrz.github.io/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/property.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="花果山" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 5.1.1"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">花果山</a>
-      </h1>
-      
+<link rel="canonical" href="https://orzcrz.github.io/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'CN'
+  };
+</script>
+
+  <title>hey gay, @property了解下 | 花果山</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花果山</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
         
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://orzcrz.github.io"></form>
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.</span> <span class="nav-text"> 属性的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E4%B8%AA%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text"> 各个关键字的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text"> 原子性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99"><span class="nav-number">2.2.</span> <span class="nav-text"> 读写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E8%AF%8D"><span class="nav-number">2.3.</span> <span class="nav-text"> 辅助词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text"> 内存管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8OC%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E6%88%96%E5%B1%9E%E6%80%A7%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text"> 在OC中使用实例变量或属性是一种怎样的体验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number"></span> <span class="nav-text"> 后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%BF%9E%E6%8E%A5"><span class="nav-number"></span> <span class="nav-text"> 参考连接</span></a></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">orzcrz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
       </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-hey-gay-property了解下" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/" class="article-date">
-  <time datetime="2020-09-01T09:47:51.000Z" itemprop="datePublished">2020-09-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      hey gay, @property了解下
-    </h1>
-  
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
 
-      </header>
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
       
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="CN">
+    <link itemprop="mainEntityOfPage" href="https://orzcrz.github.io/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="orzcrz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花果山">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hey gay, @property了解下
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-09-01 17:47:51" itemprop="dateCreated datePublished" datetime="2020-09-01T17:47:51+08:00">2020-09-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-09-10 11:54:04" itemprop="dateModified" datetime="2020-09-10T11:54:04+08:00">2020-09-10</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
         <p>先说点废话，看过一个段子说是面试问weak的经历，大概是这样：</p>
 <ul>
 <li>
@@ -120,6 +281,7 @@
 <strong>A：</strong> 小伙子挺不错的，回去等通知</p>
 </li>
 </ul>
+<a id="more"></a>
 <p>站在面试者的角度来讲，这种问题别问，问就是装逼，开发能用到？对于正经的面试官来讲，为了筛选喜欢探索、喜欢折腾、喜欢刨根问底的人才。立场和角度不同，所以没有所谓的对错，只是确实有一篇篇“底层探索、原理解析”的文章流传在网络上，供大家在面试前疯狂翻阅背诵，这也正是恶性循环的开始。</p>
 <p><strong>正能量：</strong> 我也曾有过这种经历，然而转念一想，其实那些文章的作者花心思花时间总结出来给大家阅读，确实是带来正能量的。我们除了白嫖，默默地看完然后继续下一篇之外，是否真的有从里面总结提炼出可以化为自身能力的东西呢，还是说仅仅是增加了面试的筹码而已。举个场景，若干年后地iOS开发，语言已全面换成swift了，而你所铭记在心的weak原理早已蒙尘许久，然后呢，开始新一轮的swift底层原理的文章通览默记，去应对下一场面试，完全不正能量啊。如果说天资过人，鸿运当头，早早的实现财务自由，创业成功，晋升高管，那肯定看不到我现在写的圣母文。我想强调的是，对大多数平凡而努力的开发者而言，心中无码才是至高境界啊，牛逼的是逻辑思维能力，是与众不同的想法，是高效做事的方法，而不是底层原理啊。</p>
 <p>经过开篇正能量的洗礼后，我们来谈谈本文的主题，了解下OC里的<code>property</code>，限于篇幅和水平，细节点就不贴代码凑字数了，有兴趣的可以自己去探索。</p>
@@ -189,8 +351,8 @@
 <p>上面一条也提到过，<code>retain</code>算是老牌的<code>strong</code>，老夫很久都没用过<code>retain</code>了。二者特点都是生成新指针指向被引用对象的地址，一处改动，处处改动；不会生成新对象；会增加被引用对象的引用记数，使其生命力更强更持久。<br>
 另外，网上一些说法是在修饰block属性时，两者是有区别的。<code>strong</code>修饰block会有<code>copy</code>行为(所以我们在ARC下写block也没必要用<code>copy</code>)，而<code>retain</code>则没有，仅仅只是个<code>assign</code>的作用。可以随便写个例子，按照<code>Xcode--&gt;Product--&gt;Perform Action--&gt;Assemble &quot;XXX&quot;</code>得到当前类文件的汇编，可以确认这一结论。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; strong修饰</span><br><span class="line">## -- Begin function -[ViewController setBlock0:]</span><br><span class="line">&quot;-[ViewController setBlock0:]&quot;:         ## @&quot;\01-[ViewController setBlock0:]&quot;</span><br><span class="line">...</span><br><span class="line"> callq _objc_setProperty_nonatomic_copy</span><br><span class="line">...</span><br><span class="line">## -- End function</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; retain修饰</span><br><span class="line">## -- Begin function -[ViewController setBlock1:]</span><br><span class="line">&quot;-[ViewController setBlock1:]&quot;:         ## @&quot;\01-[ViewController setBlock1:]&quot;</span><br><span class="line">...</span><br><span class="line">  callq *_objc_release@GOTPCREL(%rip)</span><br><span class="line">...</span><br><span class="line">## -- End function</span><br></pre></td></tr></table></figure>
-<p>而对于<code>copy</code>的话，也是个面试重灾区，单独拎出来梳理下。个人瞎鸡巴猜它应该是针对OC里的可变及不可变对象派生出来的，那有哪些特点呢？<code>copy</code>是个有针对性的关键字，它修饰的对象<strong>始终是不可变的</strong>；可变对象和不可变对象对应的拷贝方法分别是<code>copy</code>及<code>mutableCopy</code>，其底层对应的也就是<code>copyWithZone:</code>和<code>mutableCopyWithZone</code>，有兴趣可以找找<code>NSCopying</code>和<code>NSMutableCopying</code>协议看看；而<code>copy</code>在修饰不可变对象时，平平无奇表现上和<code>strong</code>无异，一处改动，处处改动，也就是传说中的<strong>浅拷贝</strong>，but在修饰可变对象时，<code>setter</code>中会真正的new一个新的对象出来以维持其<strong>始终是不可变的</strong>原则。<br>
-另外，真不是我偷懒，对<code>NSString *</code>、<code>NSMutableString</code>或者各种可变不可变容器类的深浅拷贝测试代码，网上也是很多很多很多，这里再粘过来也没意思，个人建议为了强化理解和认知，自己写点测试代码是最好不过的。</p>
+<p>而对于<code>copy</code>的话，也是个面试重灾区，单独拎出来梳理下。个人瞎鸡巴猜它应该是针对OC里的可变及不可变对象派生出来的，那有哪些特点呢？<code>copy</code>是个有针对性的关键字，它修饰的对象<strong>始终是不可变的</strong>；可变对象和不可变对象对应的拷贝方法分别是<code>copy</code>及<code>mutableCopy</code>，其底层对应的也就是<code>copyWithZone:</code>和<code>mutableCopyWithZone</code>，有兴趣可以找找<code>NSCopying</code>和<code>NSMutableCopying</code>协议看看；而<code>copy</code>在修饰不可变对象时平平无奇，新瓶装99，新指针-&gt;老对象，也就是传说中的<strong>浅拷贝</strong>，but在修饰可变对象时会真正的new一个新的不可变对象出来以维持其<strong>始终是不可变的</strong>原则。被人说烂的地方就是用<code>copy</code>修饰<code>NSSString</code>比较安全，防止被赋值给它的<code>NSMutableString</code>对象的后续改动牵扯到，可以回顾下上面的<code>strong</code>特性。但是极端点的话，随便你用什么关键字修饰，结果我根本不调用<code>xxx.yyy</code>，直接用<code>_yyy</code>去赋值，也还是会存在问题。所以我们在遇见可变对象赋值给不可变对象，一般手动带个[xxx copy]的调用是最靠谱的。</p>
+<p>另外，真不是我偷懒，对<code>NSString *</code>、<code>NSMutableString</code>或者各种可变不可变容器类的深浅拷贝测试代码，网上也是很多很多很多，这里再粘过来也没意思，个人建议为了强化理解和认知，自己写点测试代码是最好不过的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 我们声明的copy属性，最终调用代码</span><br><span class="line">void objc_setProperty_atomic_copy(id self, SEL _cmd, id newValue, ptrdiff_t offset)</span><br><span class="line">&#123;</span><br><span class="line">    reallySetProperty(self, _cmd, newValue, offset, true, true, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void objc_setProperty_nonatomic_copy(id self, SEL _cmd, id newValue, ptrdiff_t offset)</span><br><span class="line">&#123;</span><br><span class="line">    reallySetProperty(self, _cmd, newValue, offset, false, true, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void reallySetProperty(id self, SEL _cmd, id newValue, ptrdiff_t offset, bool atomic, bool copy, bool mutableCopy)</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  if (copy) &#123;</span><br><span class="line">      newValue &#x3D; [newValue copyWithZone:nil];</span><br><span class="line">  &#125; else if (mutableCopy) &#123;</span><br><span class="line">      newValue &#x3D; [newValue mutableCopyWithZone:nil];</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">      if (*slot &#x3D;&#x3D; newValue) return;</span><br><span class="line">      newValue &#x3D; objc_retain(newValue);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="在OC中使用实例变量或属性是一种怎样的体验"><a class="header-anchor" href="#在OC中使用实例变量或属性是一种怎样的体验">¶</a> 在OC中使用实例变量或属性是一种怎样的体验</h3>
 <p>尽管果爹在文档里明确说了，尽可能用属性代替实例变量，其好处多多。但实际上对于用属性好还是用实例变量好，依旧是众口难调，而任何一刀切的做法又都过于极端。看看别人的观点，比如我有个朋友A和B，他们的观点我列在下面：</p>
@@ -225,125 +387,121 @@
 <li><a target="_blank" rel="noopener" href="http://lists.llvm.org/pipermail/cfe-dev/2015-June/043698.html">[cfe-dev] RFC: Nullability qualifiers</a></li>
 </ul>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="https://orzcrz.github.io/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/" data-id="cketav4330003wchbc9b4f3uf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/" rel="tag">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/" rel="tag">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%82%92%E6%B2%B3%E7%B2%89/" rel="tag">炒河粉</a></li></ul>
 
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+              <a href="/tags/%E7%82%92%E6%B2%B3%E7%B2%89/" rel="tag"># 炒河粉</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/01/%E5%BC%80%E7%AF%87%E4%B8%80%E5%8C%85%E7%83%9F-%E5%89%A9%E4%B8%8B%E5%85%A8%E9%9D%A0%E7%BC%96/" rel="prev" title="开篇一包烟，剩下全靠编">
+                  <i class="fa fa-chevron-left"></i> 开篇一包烟，剩下全靠编
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
-  </div>
-  
-    
-<nav id="article-nav">
+  </article>
   
   
-    <a href="/2020/09/01/%E5%BC%80%E7%AF%87%E4%B8%80%E5%8C%85%E7%83%9F-%E5%89%A9%E4%B8%8B%E5%85%A8%E9%9D%A0%E7%BC%96/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">开篇一包烟，剩下全靠编</div>
-    </a>
   
-</nav>
 
-  
-</article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objective-C/" rel="tag">Objective-C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/" rel="tag">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9C%E5%9F%8E%E5%BE%80%E4%BA%8B/" rel="tag">东城往事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%92%E6%B2%B3%E7%B2%89/" rel="tag">炒河粉</a></li></ul>
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
     </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">orzcrz</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Objective-C/" style="font-size: 10px;">Objective-C</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/%E4%B8%9C%E5%9F%8E%E5%BE%80%E4%BA%8B/" style="font-size: 10px;">东城往事</a> <a href="/tags/%E7%82%92%E6%B2%B3%E7%B2%89/" style="font-size: 10px;">炒河粉</a>
     </div>
-  </div>
+  </footer>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
-    </div>
-  </div>
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/09/01/hey-gay-property%E4%BA%86%E8%A7%A3%E4%B8%8B/">hey gay, @property了解下</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/01/%E5%BC%80%E7%AF%87%E4%B8%80%E5%8C%85%E7%83%9F-%E5%89%A9%E4%B8%8B%E5%85%A8%E9%9D%A0%E7%BC%96/">开篇一包烟，剩下全靠编</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 orzcrz<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+
+
+
+
+
 
   
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
+  
 
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
 </body>
 </html>
