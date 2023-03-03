@@ -74,7 +74,7 @@ updated_option: 'mtime'
 per_page: 10
 pagination_dir: page
 
-theme: next
+theme: fluid
 
 deploy:
   type: git
