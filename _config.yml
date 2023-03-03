@@ -80,6 +80,8 @@ deploy:
   type: git
   repository: https://github.com/orzcrz/orzcrz.github.io.git
   branch: public
+  name: crzorz
+  email: crzorz@outlook.com
 
 search:
   path: search.xml
