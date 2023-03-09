@@ -38,15 +38,15 @@
 `hexo clean`
 
 - 更新master分支
-`hexo d`
-
-- 更新hexo分支
 
 ```shell
 git add .
 git commit -m '新增博客文章'
-git push origin hexo
+git push origin master
 ```
+
+- 更新public分支
+`hexo d`
 
 ## 目录说明
 
@@ -191,16 +191,16 @@ public/
 .deploy*/
 ```
 
-5. 创建hexo分支并切换到该分支
+5. 创建public分支并切换到该分支
 ```shell
-git checkout -b hexo
+git checkout -b public
 ```
 
 6. 上传到Github
 ```shell
 git add --all
-git commit -m "Add Hexo Branch"
-git push -u origin hexo
+git commit -m "Add Public Branch"
+git push -u origin public
 ```
 
 7. 后续更新以及写文章
