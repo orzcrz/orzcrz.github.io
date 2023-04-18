@@ -6,7 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "patch": "node _patches/patch.js"
   },
   "hexo": {
     "version": "5.4.0"
@@ -22,6 +23,7 @@
     "hexo-generator-tag": "^1.0.0",
     "hexo-renderer-ejs": "^1.0.0",
     "hexo-renderer-markdown": "^1.3.0",
+    "hexo-renderer-marked": "^6.0.0",
     "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0"
   }

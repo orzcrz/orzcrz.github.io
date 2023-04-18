@@ -11,7 +11,7 @@ author: orzcrz
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
-url: https://orzcrz.github.io/
+url: 'https://orzcrz.github.io/'
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -40,6 +40,9 @@ external_link:
 filename_case: 0
 render_drafts: false
 post_asset_folder: true
+marked:
+  prependRoot: true
+  postAsset: true
 relative_link: false
 future: true
 highlight:
