@@ -8,6 +8,7 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
 
+    "hexo": "hexo",
     "patch": "node _patches/patch.js",
     "debug": "hexo generate --watch & hexo server"
   },
