@@ -1,7 +1,6 @@
 # 备忘
 
 ## 分支说明
-
 - public分支
 负责展示静态网页
 
@@ -9,7 +8,6 @@
 备份本地hexo文件，工作分支
 
 ## 常用命令
-
 - init 新建一个博客
 `hexo init [folder]`
 
@@ -49,7 +47,6 @@ git push origin master
 `hexo d`
 
 ## 目录说明
-
 工作目录如下
 
 ```shell
@@ -70,7 +67,6 @@ git push origin master
 - themes：主题文件夹，根据主题来生成静态页面
 
 ## 其他
-
 ### 自定义文章URL
 编辑_config.yml文件：
 
@@ -97,7 +93,6 @@ date: 1970-01-01 09:00:00
 
 ### 开启分类以及标签等
 以开启标签(Tags)功能为例：
-
 ```shell
 hexo new page tags
 ```
@@ -122,7 +117,6 @@ tags:
 分类，关于等使用类似方法
 
 ### 启用文章搜索功能
-
 ```shell
 npm install hexo-generator-searchdb --save
 ```
@@ -145,13 +139,11 @@ local_search:
 ```
 
 ### 启用sitemap
-
 ```
 npm install hexo-generator-sitemap --save
 ```
 
 ### 开启RSS订阅
-
 ```
 npm install hexo-generator-feed --save
 ```
@@ -212,3 +204,7 @@ PS：如果主题是从Github克隆下来的，则会因为主题自身存在的
 git rm -r --cached "文件夹的名称"
 ```
 三步重新上传
+
+## 补充
+- 关于 `_patches` 文件夹  
+主要是用于本地调试时，图片能够正确被显示。需要修改部分资源加载的源码，所以做成 patch 用 npm 跑一下即可
