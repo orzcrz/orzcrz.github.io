@@ -348,7 +348,7 @@ int main() {
 2. 结构体内部 `*__forwarding` 是指向自身的指针
 3. 结构体内部还存储着外部 `a` 的值
 
-此时如果 `block` 是在栈上，那么这个 `__forwarding` 指针就是指向它自己；当这个 `block` 从栈上复制到堆上后，栈上的 `__forwarding` 指针指向的是复制到堆上的 `__block` 结构体，堆上的 `__block` 结构体中的 `__forwarding` 指向的还是它自己，即 `a->__forwarding` 获取到堆上的 `__block` `a->__forwarding->a` 会把堆上的 `a` 赋值为 50。因此不管是栈上还是堆上的 `__block` 结构体，最终操作的都是堆上的 `__block` 结构体里面的数据。
+此时如果 `block` 是在栈上，那么这个 `__forwarding` 指针就是指向它自己；当这个 `block` 从栈上复制到堆上后，栈上的 `__forwarding` 指针指向的是复制到堆上的 `__block` 结构体，堆上的 `__block` 结构体中的 `__forwarding` 指向的还是它自己，即 `a->__forwarding` 获取到堆上的 `__block`，`a->__forwarding->a` 会把堆上的 `a` 赋值为 50。因此不管是栈上还是堆上的 `__block` 结构体，最终操作的都是堆上的 `__block` 结构体里面的数据。
 
 #### __weak
 Block 在捕获变量时，会保留其引用关系，也就是说如果使用 `__weak` 修饰外部变量，在内部生成 block 相关数据结构时，其存储的捕获变量也会带有该标记。
