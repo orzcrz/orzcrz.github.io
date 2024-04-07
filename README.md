@@ -14,7 +14,7 @@
 - new 新建一篇文章
 `hexo new [layout] <title>`
 
-```shell
+```bash
 -p, --path	自定义新文章的路径
 -r, --replace	如果存在同名文章，将其替换
 -s, --slug	文章的 Slug，作为新文章的文件名和发布后的 URL
@@ -22,6 +22,18 @@
 
 `hexo new page --path about/me "About me"`
 以上命令会创建一个 source/about/me.md 文件，同时 title 为 “About me”
+
+- 草稿
+```bash
+# 新建草稿
+hexo new draft "My Draft"
+
+# 预览草稿
+hexo server --draft
+
+# 发布草稿
+hexo publish draft "My Draft"
+```
 
 - generate 生成静态文件
 `hexo g`
@@ -37,7 +49,7 @@
 
 - 更新master分支
 
-```shell
+```bash
 git add .
 git commit -m '新增博客文章'
 git push origin master
@@ -49,7 +61,7 @@ git push origin master
 ## 目录说明
 工作目录如下
 
-```shell
+```bash
 .
 ├── _config.yml
 ├── package.json
@@ -70,13 +82,13 @@ git push origin master
 ### 自定义文章URL
 编辑_config.yml文件：
 
-```
+```yml
 permalink: :id.html
 ```
 
 在写文章.md时，在文章首部加上id属性，id对应的值为该文章的URL
 
-```
+```yml
 ---
 title: 【移动开发】Google搜索语法的使用
 id: google_hack
@@ -93,14 +105,14 @@ date: 1970-01-01 09:00:00
 
 ### 开启分类以及标签等
 以开启标签(Tags)功能为例：
-```shell
+```bash
 hexo new page tags
 ```
 
 生成以下文件：source\tags\index.md
 修改index.md，添加 type 属性
 
-```
+```yml
 ---
 title: Tags
 date: 2020-01-21 08:00:00
@@ -109,7 +121,7 @@ type: "tags"
 ```
 写文章时在文章首部使用对应标签
 
-```
+```yml
 tags:
  - 移动开发
 ```
@@ -117,13 +129,13 @@ tags:
 分类，关于等使用类似方法
 
 ### 启用文章搜索功能
-```shell
+```bash
 npm install hexo-generator-searchdb --save
 ```
 
 编辑_config.yml，新增以下内容
 
-```
+```yml
 search:
   path: search.xml
   field: post
@@ -133,24 +145,24 @@ search:
 
 编辑主题中的_config.yml文件，开启本地搜索功能
 
-```
+```yml
 local_search:
   enable: true
 ```
 
 ### 启用sitemap
-```
+```bash
 npm install hexo-generator-sitemap --save
 ```
 
 ### 开启RSS订阅
-```
+```bash
 npm install hexo-generator-feed --save
 ```
 
 全局_config.yml中添加以下信息：
 
-```
+```yml
 feed:
   type: atom
   path: atom.xml
@@ -173,7 +185,7 @@ feed:
 3. 将hexo blog相关文件全部复制到该文件夹
 
 4. 检查 `.gitignore` ， 包含以下需要忽略的内容
-```
+```bash
 .DS_Store
 Thumbs.db
 db.json
@@ -184,12 +196,12 @@ public/
 ```
 
 5. 创建public分支并切换到该分支
-```shell
+```bash
 git checkout -b public
 ```
 
 6. 上传到Github
-```shell
+```bash
 git add --all
 git commit -m "Add Public Branch"
 git push -u origin public
@@ -200,7 +212,7 @@ git push -u origin public
 PS：如果主题是从Github克隆下来的，则会因为主题自身存在的.git文件夹导致无法成功上传主题文件。
 解决办法：
 清理缓存，删除主题中的.git文件
-```shell
+```bash
 git rm -r --cached "文件夹的名称"
 ```
 三步重新上传
