@@ -18,12 +18,12 @@
   <meta name="author" content="orzcrz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="先说点废话，看过一个段子说是面试问 weak 的经历，大概是这样：   2014年 A： weak是什么 B： 弱引用，释放时自动置nil A： 明天来上班   2016年 A： weak是什么 B： 弱引用，释放时自动置nil，内部通过哈希表维护， A： 回去等通知   2018年 A： weak是什么 B： 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;&#x3D;20">
+    <meta name="description" content="先说点废话，看过一个段子说是面试问 weak 的经历，大概是这样：  2014年A： weak是什么B： 弱引用，释放时自动置nilA： 明天来上班  2016年A： weak是什么B： 弱引用，释放时自动置nil，内部通过哈希表维护，A： 回去等通知  2018年A： weak是什么B： 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;&#x3D;2000字)实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hey gay, @property了解下">
 <meta property="og:url" content="https://orzcrz.github.io/2020/09/01/ios-property/index.html">
 <meta property="og:site_name" content="花果山">
-<meta property="og:description" content="先说点废话，看过一个段子说是面试问 weak 的经历，大概是这样：   2014年 A： weak是什么 B： 弱引用，释放时自动置nil A： 明天来上班   2016年 A： weak是什么 B： 弱引用，释放时自动置nil，内部通过哈希表维护， A： 回去等通知   2018年 A： weak是什么 B： 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;&#x3D;20">
+<meta property="og:description" content="先说点废话，看过一个段子说是面试问 weak 的经历，大概是这样：  2014年A： weak是什么B： 弱引用，释放时自动置nilA： 明天来上班  2016年A： weak是什么B： 弱引用，释放时自动置nil，内部通过哈希表维护，A： 回去等通知  2018年A： weak是什么B： 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;&#x3D;2000字)实现">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://orzcrz.github.io/2020/09/01/ios-property/property.jpg">
 <meta property="article:published_time" content="2020-09-01T09:47:51.000Z">
@@ -280,39 +280,22 @@
                 
                 <p>先说点废话，看过一个段子说是面试问 weak 的经历，大概是这样：</p>
 <ul>
-<li>
-<p>2014年<br>
-<strong>A：</strong> weak是什么<br>
-<strong>B：</strong> 弱引用，释放时自动置nil<br>
-<strong>A：</strong> 明天来上班</p>
+<li><p>2014年<br><strong>A：</strong> weak是什么<br><strong>B：</strong> 弱引用，释放时自动置nil<br><strong>A：</strong> 明天来上班</p>
 </li>
-<li>
-<p>2016年<br>
-<strong>A：</strong> weak是什么<br>
-<strong>B：</strong> 弱引用，释放时自动置nil，内部通过哈希表维护，<br>
-<strong>A：</strong> 回去等通知</p>
+<li><p>2016年<br><strong>A：</strong> weak是什么<br><strong>B：</strong> 弱引用，释放时自动置nil，内部通过哈希表维护，<br><strong>A：</strong> 回去等通知</p>
 </li>
-<li>
-<p>2018年<br>
-<strong>A：</strong> weak是什么<br>
-<strong>B：</strong> 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;=2000字)实现的<br>
-<strong>A：</strong> 回去等通知</p>
+<li><p>2018年<br><strong>A：</strong> weak是什么<br><strong>B：</strong> 弱引用，释放时自动置nil，内部通过哈希表维护，runtime里是这样(&gt;&#x3D;2000字)实现的<br><strong>A：</strong> 回去等通知</p>
 </li>
-<li>
-<p>2020年<br>
-<strong>A：</strong> weak是…<br>
-<strong>B：</strong> 别说了，我现场给你写个出来<br>
-<strong>A：</strong> 小伙子挺不错的，回去等通知</p>
+<li><p>2020年<br><strong>A：</strong> weak是…<br><strong>B：</strong> 别说了，我现场给你写个出来<br><strong>A：</strong> 小伙子挺不错的，回去等通知</p>
 </li>
 </ul>
 <span id="more"></span>
+
 <p>站在面试者的角度来讲，这种问题别问，问就是装逼，开发能用到？对于正经的面试官来讲，为了筛选喜欢探索、喜欢折腾、喜欢刨根问底的人才。立场和角度不同，所以没有所谓的对错，只是确实有一篇篇“底层探索、原理解析”的文章流传在网络上，供大家在面试前疯狂翻阅背诵，这也正是恶性循环的开始。</p>
 <p><strong>正能量：</strong> 我也曾有过这种经历，然而转念一想，其实那些文章的作者花心思花时间总结出来给大家阅读，确实是带来正能量的。我们除了白嫖，默默地看完然后继续下一篇之外，是否真的有从里面总结提炼出可以化为自身能力的东西呢，还是说仅仅是增加了面试的筹码而已。举个场景，若干年后地iOS开发，语言已全面换成swift了，而你所铭记在心的weak原理早已蒙尘许久，然后呢，开始新一轮的swift底层原理的文章通览默记，去应对下一场面试，完全不正能量啊。如果说天资过人，鸿运当头，早早的实现财务自由，创业成功，晋升高管，那肯定看不到我现在写的圣母文。我想强调的是，对大多数平凡而努力的开发者而言，心中无码才是至高境界啊，牛逼的是逻辑思维能力，是与众不同的想法，是高效做事的方法，而不是底层原理啊。</p>
 <p>经过开篇正能量的洗礼后，我们来谈谈本文的主题，了解下OC里的<code>property</code>，限于篇幅和水平，细节点就不贴代码凑字数了，有兴趣的可以自己去探索。</p>
-<h3 id="%E5%B1%9E%E6%80%A7%E7%9A%84%E6%9C%AC%E8%B4%A8" tabindex="-1">属性的本质</h3>
-<p>直观点就按着<code>property = setter + getter + ivar</code>理解，而按照果爹的官宣来讲，OC里的属性是通过<code>@property</code>定义的公开或私有的方法，具体点来讲还牵扯到编译器的新老更迭导致的coding方式不同。本文就基于<code>Clang-LLVM</code>的新编译器做理解分析就好，不扩展，不粘贴。而分析方法其实很早之前我们的语文老师已经教过我们了，说是英语老师教的也行，我们可以按着主谓宾来拆解。</p>
-<p>代码的本质是语言，机器和人都有各自的方言，那么编译器就负责双向的翻译。套用到这里，类似<code>@property xxx</code>就是一句类似你弄啥咧的方言，是给我们开发者看的，这句话机器就听不懂，就得由美女翻译官在线翻译，把意思转诉给机器。整个流程就是我们声明属性，编译器生成<code>setter</code>、<code>getter</code>、实例，再转诉给机器，帮助我们完成想要做的事情，传递想要表达的意思。我们先看看属性的整体结构都是个啥：<br>
-<img src="/2020/09/01/ios-property/property.jpg" srcset="/img/loading.gif" lazyload alt></p>
+<h3 id="属性的本质"><a href="#属性的本质" class="headerlink" title="属性的本质"></a>属性的本质</h3><p>直观点就按着<code>property = setter + getter + ivar</code>理解，而按照果爹的官宣来讲，OC里的属性是通过<code>@property</code>定义的公开或私有的方法，具体点来讲还牵扯到编译器的新老更迭导致的coding方式不同。本文就基于<code>Clang-LLVM</code>的新编译器做理解分析就好，不扩展，不粘贴。而分析方法其实很早之前我们的语文老师已经教过我们了，说是英语老师教的也行，我们可以按着主谓宾来拆解。</p>
+<p>代码的本质是语言，机器和人都有各自的方言，那么编译器就负责双向的翻译。套用到这里，类似<code>@property xxx</code>就是一句类似你弄啥咧的方言，是给我们开发者看的，这句话机器就听不懂，就得由美女翻译官在线翻译，把意思转诉给机器。整个流程就是我们声明属性，编译器生成<code>setter</code>、<code>getter</code>、实例，再转诉给机器，帮助我们完成想要做的事情，传递想要表达的意思。我们先看看属性的整体结构都是个啥：<br><img src="/2020/09/01/ios-property/property.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>我们关注的一般都在括号里“复词”的部分，所以我尽量罗列些能找到的关键字：</p>
 <ul>
 <li><code>atomic</code> &amp; <code>nonatomic</code></li>
@@ -325,46 +308,33 @@
 <li><code>class</code></li>
 </ul>
 <p>按照结构图的归纳，其实分类后就一丢丢，以后的重心会是swift，OC的话可能很少再新增特性了。平时我们用的也频繁，不如做个全面了解纪念下，留着以后给孩子讲故事用。我们看看这些方言想要表达意思，究竟是个啥。</p>
-<h3 id="%E5%90%84%E4%B8%AA%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89" tabindex="-1">各个关键字的含义</h3>
-<p>简单先说下<code>@synthesize</code>和<code>@dynamic</code>，就是告诉编译器是否要自动合成属性，我们现在一般不特指的话都是会自动合成的，所以其实你每声明一个属性，都会有配套的<code>setter</code>、<code>getter</code>、<code>_ivar</code>生成，这也是有些包大小<strong>极端</strong>优化的文章里提到的需要处理的地方。这个没啥意思，我们再看看其他属性的组成部分。</p>
-<h4 id="%E5%8E%9F%E5%AD%90%E6%80%A7" tabindex="-1">原子性</h4>
-<p>由关键字<code>atomic</code>和<code>nonatomic</code>支持，默认是<code>atomic</code>，会告诉编译器在生成<code>setter</code>和<code>getter</code>方法时是否要加锁，以<strong>牺牲部分性能</strong>换来可靠的读写操作。这也就意味着，在调用<code>xxx.yyy</code>的时候会更慢，但不用担心<code>_yyy</code>在多线程读写过程中的竞争问题。</p>
+<h3 id="各个关键字的含义"><a href="#各个关键字的含义" class="headerlink" title="各个关键字的含义"></a>各个关键字的含义</h3><p>简单先说下<code>@synthesize</code>和<code>@dynamic</code>，就是告诉编译器是否要自动合成属性，我们现在一般不特指的话都是会自动合成的，所以其实你每声明一个属性，都会有配套的<code>setter</code>、<code>getter</code>、<code>_ivar</code>生成，这也是有些包大小<strong>极端</strong>优化的文章里提到的需要处理的地方。这个没啥意思，我们再看看其他属性的组成部分。</p>
+<h4 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h4><p>由关键字<code>atomic</code>和<code>nonatomic</code>支持，默认是<code>atomic</code>，会告诉编译器在生成<code>setter</code>和<code>getter</code>方法时是否要加锁，以<strong>牺牲部分性能</strong>换来可靠的读写操作。这也就意味着，在调用<code>xxx.yyy</code>的时候会更慢，但不用担心<code>_yyy</code>在多线程读写过程中的竞争问题。</p>
 <figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs sas">// codes <span class="hljs-keyword">from</span> objc4-781<br><br>// the setter<br>&#123;<br>  ...<br>  <span class="hljs-keyword">if</span> (!atomic) &#123;<br>      oldValue = <span class="hljs-comment">*slot;</span><br>      <span class="hljs-comment">*slot = newValue;</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>      spinlock_t&amp; slotlock = PropertyLocks[slot];<br>      slotlock.lock();<br>      oldValue = <span class="hljs-comment">*slot;</span><br>      <span class="hljs-comment">*slot = newValue;</span><br>      slotlock.unlock();<br>  &#125;<br>  ...<br>&#125;<br><br>// the getter<br>&#123;<br>  ...<br>  <span class="hljs-keyword">if</span> (!atomic) <span class="hljs-keyword">return</span> <span class="hljs-comment">*slot;</span><br><br>  spinlock_t&amp; slotlock = PropertyLocks[slot];<br>  slotlock.lock();<br>  id value = objc_retai<span class="hljs-meta">n</span>(<span class="hljs-comment">*slot);</span><br>  slotlock.unlock();<br>  <span class="hljs-keyword">return</span> objc_autoreleaseReturnValue(value);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="%E8%AF%BB%E5%86%99" tabindex="-1">读写</h4>
-<p>由关键字<code>readwrite</code>和<code>readonly</code>支持，默认的<code>readwrite</code>会让编译器同时生成<code>setter</code>和<code>getter</code>方法，而<code>readonly</code>的话顾名思义就只提供<code>getter</code>方法。</p>
-<h4 id="%E8%BE%85%E5%8A%A9%E8%AF%8D" tabindex="-1">辅助词</h4>
-<ul>
-<li>
-<p><code>nullable</code> &amp; <code>nonnull</code></p>
+
+<h4 id="读写"><a href="#读写" class="headerlink" title="读写"></a>读写</h4><p>由关键字<code>readwrite</code>和<code>readonly</code>支持，默认的<code>readwrite</code>会让编译器同时生成<code>setter</code>和<code>getter</code>方法，而<code>readonly</code>的话顾名思义就只提供<code>getter</code>方法。</p>
+<h4 id="辅助词"><a href="#辅助词" class="headerlink" title="辅助词"></a>辅助词</h4><ul>
+<li><p><code>nullable</code> &amp; <code>nonnull</code></p>
 <p>用于标识该属性值是否可空，需要限定当前属性变量是指针式的，如<code>NSString *</code>、<code>int *</code>，而基础数据类型则不行。类比下<code>swift</code>的<code>?</code>和<code>!</code>，如果对一个<code>nonnull</code>修饰的属性赋值<code>nil</code>，<code>Xcode</code>会贴心地给你个黄牌警告。事实上，如果需要每个属性或每个方法的参数和返回值都去指定<code>nonnull</code>和<code>nullable</code>，是一件非常繁琐的事。苹果为了减轻我们的工作量，专门提供了两个宏：<code>NS_ASSUME_NONNULL_BEGIN</code>和<code>NS_ASSUME_NONNULL_END</code>，把它们插在在类文件头尾，那么所有的方法和属性都会自动加上<code>nonnull</code>关键字，我们可以单独指定那些需要<code>nullable</code>的部分。</p>
 </li>
 </ul>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-meta">#import <span class="hljs-string">&lt;UIKit/UIKit.h&gt;</span></span><br><br><span class="hljs-built_in">NS_ASSUME_NONNULL_BEGIN</span><br><br><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">ViewController</span> : <span class="hljs-title">UIViewController</span></span><br><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">strong</span><span class="hljs-comment">/*, nonnull*/</span>) <span class="hljs-built_in">UIView</span> *nonnullView;<br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>, <span class="hljs-keyword">nullable</span>) <span class="hljs-built_in">NSString</span> *nullableString;<br><br><span class="hljs-keyword">@end</span><br><br><span class="hljs-built_in">NS_ASSUME_NONNULL_END</span><br></code></pre></td></tr></table></figure>
+
 <ul>
-<li>
-<p><code>setter</code> &amp; <code>getter</code><br>
-可以指定<code>set</code>方法或<code>get</code>方法的别名，没啥意思，但也聊两句骚话。命名一直是编程的头等大事，好的命名可以提高码农的读写效率至少30%，各方大哥大佬们想尽办法去寻找优秀的命名手段，大小驼峰啊，下划线啊，匈牙利啊，都是尝试去做到好的命名。举，这里我们声明属性<code>blue</code>，在赋值时可以叫<code>setBlue:</code>，很舒服，那么在用点语法调用<code>BOOL a = xxx.blue</code>时就不太爽，所以指定个别名<code>isBlue</code>变成<code>BOOL a = xxx.isBlue</code>，这样就爽很多。</p>
+<li><p><code>setter</code> &amp; <code>getter</code><br>可以指定<code>set</code>方法或<code>get</code>方法的别名，没啥意思，但也聊两句骚话。命名一直是编程的头等大事，好的命名可以提高码农的读写效率至少30%，各方大哥大佬们想尽办法去寻找优秀的命名手段，大小驼峰啊，下划线啊，匈牙利啊，都是尝试去做到好的命名。举，这里我们声明属性<code>blue</code>，在赋值时可以叫<code>setBlue:</code>，很舒服，那么在用点语法调用<code>BOOL a = xxx.blue</code>时就不太爽，所以指定个别名<code>isBlue</code>变成<code>BOOL a = xxx.isBlue</code>，这样就爽很多。</p>
 </li>
-<li>
-<p><code>null_resettable</code> &amp; <code>null_unspecified</code><br>
-这两个关键字也需要限定当前属性变量是指针式的，如<code>NSString *</code>、<code>int *</code>，而基础数据类型则不行。</p>
+<li><p><code>null_resettable</code> &amp; <code>null_unspecified</code><br>这两个关键字也需要限定当前属性变量是指针式的，如<code>NSString *</code>、<code>int *</code>，而基础数据类型则不行。</p>
 <ul>
-<li>对于<code>null_resettable</code>，我们最熟悉的<code>UIViewController</code>，它的属性<code>view</code>即是用的此关键字，意味着我们可以对该属性赋值<code>nil</code>，但我们在通过<code>self.view</code>获取其值时<strong>一定不为空</strong>。</li>
+<li>对于<code>null_resettable</code>，我们最熟悉的<code>UIViewController</code>，它的属性<code>view</code>即是用的此关键字，意味着我们可以对该属性赋值<code>nil</code>，但我们在通过<code>self.view</code>获取其值时<strong>一定不为空</strong>。<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">@property</span>(<span class="hljs-keyword">null_resettable</span>, <span class="hljs-keyword">nonatomic</span>,<span class="hljs-keyword">strong</span>) <span class="hljs-built_in">UIView</span> *view; <span class="hljs-comment">// The getter first invokes [self loadView] if the view hasn&#x27;t been set yet. Subclasses must call super if they override the setter or getter.</span><br><br><span class="hljs-comment">// 大概是这么个创建形式</span><br>- (<span class="hljs-built_in">UIView</span> *)view &#123;<br>  <span class="hljs-keyword">if</span> (_view) <span class="hljs-keyword">return</span> _view;<br>  _view = <span class="hljs-built_in">UIView</span>.new;<br>  <span class="hljs-keyword">return</span> _view;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>对于<code>null_unspecified</code>倒是很少提及和使用，按照字面意思理解的话，应该是所修饰属性的值和类型都他娘的不确定。而少见的原因大概是果爹仅仅是为了迁移到<code>swift</code>强行加进去的，按着下面的<code>swift</code>代码理解下吧：<figure class="highlight wren"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs wren"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>  <span class="hljs-keyword">var</span> <span class="hljs-variable">a</span>: <span class="hljs-title class_">String</span><span class="hljs-operator">!</span> <span class="hljs-comment">// 看我，我就是null_unspecified</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">@property</span>(<span class="hljs-keyword">null_resettable</span>, <span class="hljs-keyword">nonatomic</span>,<span class="hljs-keyword">strong</span>) <span class="hljs-built_in">UIView</span> *view; <span class="hljs-comment">// The getter first invokes [self loadView] if the view hasn&#x27;t been set yet. Subclasses must call super if they override the setter or getter.</span><br><br><span class="hljs-comment">// 大概是这么个创建形式</span><br>- (<span class="hljs-built_in">UIView</span> *)view &#123;<br>  <span class="hljs-keyword">if</span> (_view) <span class="hljs-keyword">return</span> _view;<br>  _view = <span class="hljs-built_in">UIView</span>.new;<br>  <span class="hljs-keyword">return</span> _view;<br>&#125;<br></code></pre></td></tr></table></figure>
-<ul>
-<li>对于<code>null_unspecified</code>倒是很少提及和使用，按照字面意思理解的话，应该是所修饰属性的值和类型都他娘的不确定。而少见的原因大概是果爹仅仅是为了迁移到<code>swift</code>强行加进去的，按着下面的<code>swift</code>代码理解下吧：</li>
-</ul>
-<figure class="highlight wren"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs wren"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>  <span class="hljs-keyword">var</span> <span class="hljs-variable">a</span>: <span class="hljs-title class_">String</span><span class="hljs-operator">!</span> <span class="hljs-comment">// 看我，我就是null_unspecified</span><br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
-<li>
-<p><code>class</code><br>
-简而言之，就是声明为类属性，是的，也是他娘的为了<code>swift</code>服务的。然后你得自己去实现<code>setter</code>和<code>getter</code>，觉得无聊是吧，我也这么觉得，所以我用的最多的地方就是实现单例类的<code>sharedInstance</code>方法而已。</p>
+<li><p><code>class</code><br>简而言之，就是声明为类属性，是的，也是他娘的为了<code>swift</code>服务的。然后你得自己去实现<code>setter</code>和<code>getter</code>，觉得无聊是吧，我也这么觉得，所以我用的最多的地方就是实现单例类的<code>sharedInstance</code>方法而已。</p>
 </li>
 </ul>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">// .h</span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">class</span>) MyType *sharedInstance;<br><br><span class="hljs-comment">// .m</span><br>+ (<span class="hljs-keyword">instancetype</span>)sharedInstance &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">id</span> instance;<br>    <span class="hljs-keyword">static</span> <span class="hljs-built_in">dispatch_once_t</span> onceToken;<br>    <span class="hljs-built_in">dispatch_once</span>(&amp;onceToken, ^&#123;<br>        instance = [[<span class="hljs-keyword">self</span> alloc] init];<br>    &#125;);<br>    <span class="hljs-keyword">return</span> instance;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86" tabindex="-1">内存管理</h4>
-<p>这个地方可以说是面试的重灾区，而且网上的文章解析一大堆，其实粗浅的说起来也没啥意思的，大家都烂熟于心。而要引申的话，一个关键字可以说一天，也有点过分。综上，还是简单点吧（可不是懒，码农的事怎么能说是偷呢 ---- 窃·格瓦拉·码男）。</p>
+
+<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><p>这个地方可以说是面试的重灾区，而且网上的文章解析一大堆，其实粗浅的说起来也没啥意思的，大家都烂熟于心。而要引申的话，一个关键字可以说一天，也有点过分。综上，还是简单点吧（可不是懒，码农的事怎么能说是偷呢 —- 窃·格瓦拉·码男）。</p>
 <ul>
 <li><code>weak</code> &amp; <code>assign</code> &amp; <code>unsafe_unretained</code></li>
 </ul>
@@ -376,23 +346,22 @@
 <p>上面一条也提到过，<code>retain</code>算是老牌的<code>strong</code>，老夫很久都没用过<code>retain</code>了。二者特点都是生成新指针指向被引用对象的地址，一处改动，处处改动；不会生成新对象；会增加被引用对象的引用记数，使其生命力更强更持久。</p>
 <p>另外，网上一些说法是在修饰block属性时，两者是有区别的。<code>strong</code>修饰block会有<code>copy</code>行为(所以我们在ARC下写block也没必要用<code>copy</code>)，而<code>retain</code>则没有，仅仅只是个<code>assign</code>的作用。可以随便写个例子，按照<code>Xcode--&gt;Product--&gt;Perform Action--&gt;Assemble &quot;XXX&quot;</code>得到当前类文件的汇编，可以确认这一结论。</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-comment">// strong修饰</span><br>## -- Begin function -[ViewController setBlock0:]<br><span class="hljs-string">&quot;-[ViewController setBlock0:]&quot;</span>:         ## @<span class="hljs-string">&quot;\01-[ViewController setBlock0:]&quot;</span><br>...<br> callq _objc_setProperty_nonatomic_copy<br>...<br>## -- End function<br><br><span class="hljs-comment">// retain修饰</span><br>## -- Begin function -[ViewController setBlock1:]<br><span class="hljs-string">&quot;-[ViewController setBlock1:]&quot;</span>:         ## @<span class="hljs-string">&quot;\01-[ViewController setBlock1:]&quot;</span><br>...<br>  callq *_objc_release@GOTPCREL(%rip)<br>...<br>## -- End function<br></code></pre></td></tr></table></figure>
+
 <p>而对于<code>copy</code>的话，也是个面试重灾区，单独拎出来梳理下。个人瞎鸡巴猜它应该是针对OC里的可变及不可变对象派生出来的，那有哪些特点呢？<code>copy</code>是个有针对性的关键字，它修饰的对象<strong>始终是不可变的</strong>；可变对象和不可变对象对应的拷贝方法分别是<code>copy</code>及<code>mutableCopy</code>，其底层对应的也就是<code>copyWithZone:</code>和<code>mutableCopyWithZone</code>，有兴趣可以找找<code>NSCopying</code>和<code>NSMutableCopying</code>协议看看；而<code>copy</code>在修饰不可变对象时平平无奇，表现上与<code>strong</code>无异，新瓶装99，新指针-&gt;老对象，也就是传说中的<strong>浅拷贝</strong>，but在修饰可变对象时会真正的new一个新的不可变对象出来以维持其<strong>始终是不可变的</strong>原则。</p>
 <p>被人说烂的地方就是用<code>copy</code>修饰<code>NSSString</code>比较安全，防止被赋值给它的<code>NSMutableString</code>对象的后续改动牵扯到，可以回顾上面的<code>strong</code>特性。但是极端点的话，随便你用什么关键字修饰，结果我根本不调用<code>xxx.yyy</code>，直接用<code>_yyy</code>去赋值，也还是会存在问题。所以我们在遇见可变对象赋值给不可变对象，一般手动带个[xxx copy]的调用是最靠谱的。</p>
 <p>另外，真不是我偷懒，对<code>NSString *</code>、<code>NSMutableString</code>或者各种可变不可变容器类的深浅拷贝测试代码，网上也是很多很多很多，这里再粘过来也没意思，个人建议为了强化理解和认知，自己写点测试代码是最好不过的。</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 我们声明的copy属性，最终调用代码</span><br>void objc<span class="hljs-constructor">_setProperty_atomic_copy(<span class="hljs-params">id</span> <span class="hljs-params">self</span>, SEL <span class="hljs-params">_cmd</span>, <span class="hljs-params">id</span> <span class="hljs-params">newValue</span>, <span class="hljs-params">ptrdiff_t</span> <span class="hljs-params">offset</span>)</span><br>&#123;<br>    really<span class="hljs-constructor">SetProperty(<span class="hljs-params">self</span>, <span class="hljs-params">_cmd</span>, <span class="hljs-params">newValue</span>, <span class="hljs-params">offset</span>, <span class="hljs-params">true</span>, <span class="hljs-params">true</span>, <span class="hljs-params">false</span>)</span>;<br>&#125;<br><br>void objc<span class="hljs-constructor">_setProperty_nonatomic_copy(<span class="hljs-params">id</span> <span class="hljs-params">self</span>, SEL <span class="hljs-params">_cmd</span>, <span class="hljs-params">id</span> <span class="hljs-params">newValue</span>, <span class="hljs-params">ptrdiff_t</span> <span class="hljs-params">offset</span>)</span><br>&#123;<br>    really<span class="hljs-constructor">SetProperty(<span class="hljs-params">self</span>, <span class="hljs-params">_cmd</span>, <span class="hljs-params">newValue</span>, <span class="hljs-params">offset</span>, <span class="hljs-params">false</span>, <span class="hljs-params">true</span>, <span class="hljs-params">false</span>)</span>;<br>&#125;<br><br>static inline void really<span class="hljs-constructor">SetProperty(<span class="hljs-params">id</span> <span class="hljs-params">self</span>, SEL <span class="hljs-params">_cmd</span>, <span class="hljs-params">id</span> <span class="hljs-params">newValue</span>, <span class="hljs-params">ptrdiff_t</span> <span class="hljs-params">offset</span>, <span class="hljs-params">bool</span> <span class="hljs-params">atomic</span>, <span class="hljs-params">bool</span> <span class="hljs-params">copy</span>, <span class="hljs-params">bool</span> <span class="hljs-params">mutableCopy</span>)</span><br>&#123;<span class="hljs-operator"></span><br><span class="hljs-operator">  ...</span><br><span class="hljs-operator">  </span><span class="hljs-keyword">if</span> (copy) &#123;<br>      newValue = <span class="hljs-literal">[<span class="hljs-identifier">newValue</span> <span class="hljs-identifier">copyWithZone</span>:<span class="hljs-identifier">nil</span>]</span>;<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mutableCopy) &#123;<br>      newValue = <span class="hljs-literal">[<span class="hljs-identifier">newValue</span> <span class="hljs-identifier">mutableCopyWithZone</span>:<span class="hljs-identifier">nil</span>]</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">if</span> (*slot<span class="hljs-operator"> == </span>newValue) return;<br>      newValue = objc<span class="hljs-constructor">_retain(<span class="hljs-params">newValue</span>)</span>;<br>  &#125;<span class="hljs-operator"></span><br><span class="hljs-operator">  ...</span><br><span class="hljs-operator"></span>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="%E5%9C%A8oc%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E6%88%96%E5%B1%9E%E6%80%A7%E6%98%AF%E4%B8%80%E7%A7%8D%E6%80%8E%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C" tabindex="-1">在OC中使用实例变量或属性是一种怎样的体验</h3>
-<p>尽管果爹在文档里明确说了，尽可能用属性代替实例变量，其好处多多。但实际上对于用属性好还是用实例变量好，依旧是众口难调，而任何一刀切的做法又都过于极端。看看别人的观点，比如我有个朋友A和B，他们的观点我列在下面：</p>
+
+<h3 id="在OC中使用实例变量或属性是一种怎样的体验"><a href="#在OC中使用实例变量或属性是一种怎样的体验" class="headerlink" title="在OC中使用实例变量或属性是一种怎样的体验"></a>在OC中使用实例变量或属性是一种怎样的体验</h3><p>尽管果爹在文档里明确说了，尽可能用属性代替实例变量，其好处多多。但实际上对于用属性好还是用实例变量好，依旧是众口难调，而任何一刀切的做法又都过于极端。看看别人的观点，比如我有个朋友A和B，他们的观点我列在下面：</p>
 <ul>
-<li>
-<p>A，泻药，认为用属性好</p>
+<li><p>A，泻药，认为用属性好</p>
 <ul>
 <li>属性写起来似乎很长，但实际上用<strong>CodeSnippets</strong>来写，2个字母就写出来了，而且是具有高可读性，高完整性的声明</li>
 <li>自动创建的<code>setter</code>和<code>getter</code>方法，在需要的时候重写即可，毫无成本，轻松愉快</li>
 <li>更OC，遇到在block中的实例变量，如果用<code>_yyy</code>这种，还会收到循环引用的警告，强迫症的话不得不改成<code>xxx-&gt;_yyy</code>的写法，整的像调用<code>struct</code>一样</li>
 </ul>
 </li>
-<li>
-<p>B，刚下飞机，认为用实例变量好</p>
+<li><p>B，刚下飞机，认为用实例变量好</p>
 <ul>
 <li>属性会从代码层面带来包大小的负担，而且是不可压缩的</li>
 <li>使用<code>xxx.yyy</code>的方式，实际上是在调用方法，某些重写<code>getter</code>的懒加载属性，内部还会执行一次判空，想想就恶心</li>
@@ -402,18 +371,14 @@
 </li>
 </ul>
 <p>个人认为，既然大家都喜欢吹牛逼，说是要对写的每一行代码负责，那么在使用属性或者实例变量的时候，如果有统一的规范约束，那就是答案，如果没有就想想为什么这里用属性那里用变量，无论是追求官网风格、大神洁癖、装B、没理由、我流、无脑流等等，都是属于你个人行为意识的体现，没有绝对的好坏之分，只是当别人问你时，必须要自信的给出你的答案，让人拍腿直呼霸气外露，这事就算成了。</p>
-<h2 id="%E5%90%8E%E8%AE%B0" tabindex="-1">后记</h2>
-<p>能坚持看到这里的都是真爱，先说声谢谢，分享的东西都很粗浅，但是知道概念是一回事，很好的表达出来又是一回事，所以才有了这个花果山。同时我也还是希望给大家带来满满的正能量，所以再补充些骚话：回头看看我自己的开发历程，都只是摸爬滚打，靠着一腔兴趣撑到现在，而终于没有一个领域精通或者擅长，都是浅浅的浮于表面；一方面是自己没有做足够的回顾总结，另一方面没有意识去培养系统化思考，高效的学习方法等，所以一直处理半桶水的样子；建这个花果山的初衷，也是希望像那些大佬一样，坚持阅读和学习，总结记录，有条理有思考，能够沉淀足够多的能量，突破自我。</p>
-<h2 id="%E5%8F%82%E8%80%83%E8%BF%9E%E6%8E%A5" tabindex="-1">参考连接</h2>
-<ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>能坚持看到这里的都是真爱，先说声谢谢，分享的东西都很粗浅，但是知道概念是一回事，很好的表达出来又是一回事，所以才有了这个花果山。同时我也还是希望给大家带来满满的正能量，所以再补充些骚话：回头看看我自己的开发历程，都只是摸爬滚打，靠着一腔兴趣撑到现在，而终于没有一个领域精通或者擅长，都是浅浅的浮于表面；一方面是自己没有做足够的回顾总结，另一方面没有意识去培养系统化思考，高效的学习方法等，所以一直处理半桶水的样子；建这个花果山的初衷，也是希望像那些大佬一样，坚持阅读和学习，总结记录，有条理有思考，能够沉淀足够多的能量，突破自我。</p>
+<h2 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/releasenotes/ObjectiveC/ModernizationObjC/AdoptingModernObjective-C/AdoptingModernObjective-C.html">Adopting Modern Objective-C</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html">Encapsulating Data</a></li>
 <li><a target="_blank" rel="noopener" href="https://swiftunboxed.com/interop/objc-nullability-annotations/">Nullability Annotations in Objective-C</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.saitjr.com/ios/apple-api-nullability.html">『Apple API』Nullability</a></li>
 <li><a target="_blank" rel="noopener" href="http://lists.llvm.org/pipermail/cfe-dev/2015-June/043698.html">[cfe-dev] RFC: Nullability qualifiers</a></li>
 </ul>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 
                 
               </div>
@@ -504,9 +469,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/20/ios-runloop/" title="深入理解 RunLoop">
+                      <a href="/2023/04/20/ios-block/" title="深入理解 Block">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入理解 RunLoop</span>
+                        <span class="hidden-mobile">深入理解 Block</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
