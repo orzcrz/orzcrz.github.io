@@ -34,7 +34,7 @@ Block 是 `Objective-C（简称OC）` 中对闭包（Closure）的实现，果�
 int main() {
     @autoreleasepool {
         int age = 30;
-        void(^block)(int, int) = ^(int a, int b){
+        void (^block)(int, int) = ^(int a, int b) {
             NSLog(@"%d%d退休", a, b);
             NSLog(@"age = %d", age);
         };
@@ -81,7 +81,7 @@ static void __main_block_func_0(struct __main_block_impl_0 *__cself, int a, int 
 static struct __main_block_desc_0 {
   size_t reserved;
   size_t Block_size;
-} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)};
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0) };
 
 int main() {
     /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
@@ -218,14 +218,13 @@ struct __main_block_impl_0 {
 static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
   int a = __cself->a; // bound by copy
   int *b = __cself->b; // bound by copy
-
-            NSLog((NSString *)&__NSConstantStringImpl__var_folders_v2_h365bjbs0kvdryv303hjf5tw0000gn_T_main_6f6854_mii_0, a, (*b), c, d);
-        }
+  NSLog((NSString *)&__NSConstantStringImpl__var_folders_v2_h365bjbs0kvdryv303hjf5tw0000gn_T_main_6f6854_mii_0, a, (*b), c, d);
+}
 
 static struct __main_block_desc_0 {
   size_t reserved;
   size_t Block_size;
-} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)};
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0) };
 
 int main() {
     /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
@@ -328,7 +327,7 @@ static struct __main_block_desc_0 {
   size_t Block_size;
   void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
   void (*dispose)(struct __main_block_impl_0*);
-} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0 };
 
 int main() {
     /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
@@ -465,6 +464,6 @@ void (^exampleBlock)(void) = ^{
 3. 构造 hook block，然后强转成 `Block_layout` 结构体，替换双方的 invoke，也能勉强满足交换需求
 
 # 后语
-写到后面越写越水，这倒不是因为我懒（就是吧~），也是最近今日事务繁多，搞的我心力交瘁，成年人的世界哪有容易二字。
+写到后面越写越水，这倒不是因为我懒（就是吧~），也是最近事务繁多，搞的我心力交瘁，成年人的世界哪有容易二字。
 
 本篇通过对 Block 做了一些分析，除了常规性的技术总结之外，也算是为了日后八股文考试时能增加些自信心吧，分析过和没分析过还真就不一样。至于对个人水平和能力的体现，还是那句话，这 iOS 开发就那些东西，多少年了也没什么变化。
